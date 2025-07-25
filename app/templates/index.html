@@ -2,31 +2,115 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Shop - E-Commerce</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>🛍️ My E-Commerce Store</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+        }
+
+        .navbar {
+            background-color: #2b2d42;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 18px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #2b2d42;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .product {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+        }
+
+        .product img {
+            width: 100%;
+            max-height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        .product-price {
+            color: #0f9d58;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background-color: #ff6f61;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #e55b4e;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>🛍️ My E-Commerce Store</h1>
-        <nav>
-            <a href="/">Home</a>
+    <div class="navbar">
+        <div><strong>🛍️ My E-Commerce Store</strong></div>
+        <div>
+            <a href="/">🏠 Home</a>
             <a href="/cart">🛒 Cart</a>
-        </nav>
-    </header>
+        </div>
+    </div>
 
-    <section class="product-list">
+    <h1>🛒 Shop Your Favorite Products</h1>
+
+    <div class="products">
         {% for product in products %}
-        <div class="product-card">
-            <div class="product-images">
-                {% for img in product.images %}
-                    <img src="{{ img }}" alt="{{ product.name }}">
-                {% endfor %}
-            </div>
-            <h3>{{ product.name }}</h3>
-            <p>₹{{ product.price }}</p>
-            <a href="/add_to_cart/{{ product._id }}" class="btn">Add to Cart</a>
+        <div class="product">
+            <img src="{{ product.image }}" alt="{{ product.name }}">
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-price">₹{{ product.price }}</div>
+            <a class="btn" href="/add_to_cart/{{ product._id }}">Add to Cart</a>
         </div>
         {% endfor %}
-    </section>
+    </div>
 </body>
 </html>
