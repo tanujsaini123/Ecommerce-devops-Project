@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head><title>Products</title></head>
+<head>
+    <title>Products</title>
+    <style>
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+        .product-gallery img {
+            width: 120px;
+            height: auto;
+            margin-right: 8px;
+        }
+    </style>
+</head>
 <body>
 <h1>Products</h1>
-<ul>
-  {% for product in products %}
-    <li>{{ product.name }} - ₹{{ product.price }}
-      <a href="/add_to_cart/{{ product._id }}">Add to Cart</a>
-    </li>
-  {% endfor %}
-</ul>
-<a href="/cart">View Cart</a>
+
+{% for product in products %}
+<div class="product">
+    <h3>{{ product.name }}</h3>
+    <p><strong>₹{{ product.price }}</strong></p>
+
+    <div class="product-gallery">
+        {% for image in product.images %}
+            <img src="{{ image }}" alt="{{ product.name }}">
+        {% endfor %}
+    </div>
+
+    <p><a href="/add_to_cart/{{ product._id }}">Add to Cart</a></p>
+</div>
+{% endfor %}
+
+<a href="/cart">🛒 View Cart</a>
 </body>
 </html>
