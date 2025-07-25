@@ -1,12 +1,26 @@
-version: '3'
+version: '3.8'
+
 services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
   web:
     build: .
+    container_name: ecommerce-app
     ports:
       - "5000:5000"
     depends_on:
       - mongo
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/
+    volumes:
+      - .:/app
+    restart: always
+
+volumes:
+  mongo-data:
