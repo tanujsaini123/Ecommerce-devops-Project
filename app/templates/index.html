@@ -1,38 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Products</title>
-    <style>
-        .product {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px;
-        }
-        .product-gallery img {
-            width: 120px;
-            height: auto;
-            margin-right: 8px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Shop - E-Commerce</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-<h1>Products</h1>
+    <header>
+        <h1>🛍️ My E-Commerce Store</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/cart">🛒 Cart</a>
+        </nav>
+    </header>
 
-{% for product in products %}
-<div class="product">
-    <h3>{{ product.name }}</h3>
-    <p><strong>₹{{ product.price }}</strong></p>
-
-    <div class="product-gallery">
-        {% for image in product.images %}
-            <img src="{{ image }}" alt="{{ product.name }}">
+    <section class="product-list">
+        {% for product in products %}
+        <div class="product-card">
+            <div class="product-images">
+                {% for img in product.images %}
+                    <img src="{{ img }}" alt="{{ product.name }}">
+                {% endfor %}
+            </div>
+            <h3>{{ product.name }}</h3>
+            <p>₹{{ product.price }}</p>
+            <a href="/add_to_cart/{{ product._id }}" class="btn">Add to Cart</a>
+        </div>
         {% endfor %}
-    </div>
-
-    <p><a href="/add_to_cart/{{ product._id }}">Add to Cart</a></p>
-</div>
-{% endfor %}
-
-<a href="/cart">🛒 View Cart</a>
+    </section>
 </body>
 </html>
